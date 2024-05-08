@@ -1,0 +1,7 @@
+{
+  "name": "PIABDD",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
