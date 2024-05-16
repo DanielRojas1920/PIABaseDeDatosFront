@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConnectionService } from './connection.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -6,10 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Nuevo Cliente', url: '/nuevo-cliente', icon: 'person-add'},
-    { title: 'Nuevo Destintario', url: '/nuevo-destinatario', icon: "paper-plane"},
     { title: 'Nuevo Paquete', url: '/nuevo-paquete', icon: "cube"},
     { title: 'Nueva Entrega', url: '/nueva-entrega', icon: "car"},
   ];
-  constructor() {}
+  constructor(private connection: ConnectionService) {
+    connection.getRows('Clientes')
+
+  }
 }

@@ -13,4 +13,107 @@
       <ion-title size="large">Nuevo Paquete</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-modal id="tableModal" [isOpen]="isModalOpen" [canDismiss]="canDismiss">
+    <ng-template>
+      <app-search-result *ngIf="selector === 0" (closeModal)="closeModal($event)" [tableName]="this.searchOptionSelected"> </app-search-result>
+      <app-create-cliente *ngIf="selector === 1" (closeModal)="closeModal($event)"></app-create-cliente>
+      <app-create-destinatario *ngIf="selector === 2" (closeModal)="closeModal($event)"> </app-create-destinatario>
+    </ng-template>
+  </ion-modal>
+
+
+  <ion-grid color="light" [fixed]="true">
+    <form [formGroup]="paquetesForm" (ngSubmit)="createPaquete()">
+      <ion-row>
+        <ion-col size=>
+          <ion-item>
+            <ion-input formControlName="Desc" label-placement="floating" label="Descripción del producto"> </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col> 
+          <ion-item>
+            <ion-select formControlName="IDTipo" label="Tipo de paquete" label-placement="floating">
+              <ion-select-option  *ngFor="let element of tipos" [value]="element.idTipos"> {{element.Tipo}} </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col> 
+          <ion-item >
+            <ion-checkbox formControlName="EsFragil"> El producto es frágil? </ion-checkbox>        
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col >
+          <ion-item>
+            <ion-input formControlName="Alto" label="Alto" label-placement="floating">  </ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col >
+          <ion-item>
+            <ion-input formControlName="Largo" label="Largo" label-placement="floating">  </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col >
+          <ion-item>
+            <ion-input formControlName="Ancho" label="Ancho" label-placement="floating">  </ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col >
+          <ion-item>
+            <ion-input formControlName="Peso" label="Peso" label-placement="floating">  </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+      </ion-row>
+      <ion-row> 
+        <ion-col>
+          <ion-item>
+            <ion-label> Selecciona a un cliente  </ion-label>
+            <ion-button (click)="changeSearchOptionSelected('Clientes')"> Buscar </ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-label> Cliente seleccionado: {{paquetesForm.value.IDCliente}}  </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label> Es un nuevo cliente? Registra un nuevo cliente </ion-label>
+            <ion-button (click)="changeCreateClienteOptionSelected()" > Crear </ion-button>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label> Selecciona a un Destinatario  </ion-label>
+            <ion-button (click)="changeSearchOptionSelected('Destinatarios')"> Buscar </ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-label> Destinatario seleccionado: {{paquetesForm.value.IDDestinatarios}} </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label> Es un nuevo Destinatario? Registra un nuevo Destinatario </ion-label>
+            <ion-button (click)="changeCreateDestinatarioOptionSelected()"> Crear </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label> Selecciona a una Sucursal  </ion-label>
+            <ion-button (click)="changeSearchOptionSelected('Sucursales')"> Buscar </ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-label> Sucursal seleccionada: {{paquetesForm.value.IDSucursales}} </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-button [disabled]="!paquetesForm.valid" type="submit" expand="block" > Registrar </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
 </ion-content>

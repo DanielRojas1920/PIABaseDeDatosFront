@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click) = 'EmitCloseModal()'> Cerrar </ion-button>
+    </ion-buttons>
+    <ion-title size="large"> Nuevo Cliente </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+<ion-grid>
+  <form [formGroup]="clienteForm" (ngSubmit)="createCliente()">
+    <ion-row>
+      <ion-col size="4">
+        <ion-item>
+          <ion-input formControlName="Nombre" label="Nombre"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="4">
+        <ion-item>
+          <ion-input formControlName="ApellidoP" label="Apellido Paterno"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="4">
+        <ion-item>
+          <ion-input formControlName="ApellidoM" label="Apellido Materno"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col offset="2" size="4">
+        <ion-item>
+          <ion-input formControlName="Correo" label="Correo"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="4">
+        <ion-item>
+          <ion-input formControlName="Telefono" type="digit" label="Teléfono"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-col>
+      <ion-row offset="4" size="4">
+        <ion-button [disabled]="!clienteForm.valid" type="submit" expand="block"> Crear </ion-button>
+      </ion-row>
+    </ion-col>
+
+  </form>
+</ion-grid>
+  
+</ion-content>

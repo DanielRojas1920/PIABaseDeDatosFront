@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click) = 'EmitCloseModal()'> Cerrar </ion-button>
+    </ion-buttons>
+    <ion-title size="large"> Nuevo Destinatario </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-modal id="tableModalChild" [isOpen]="isModalOpenChild" [canDismiss]="canDismissChild">
+    <ng-template>
+      <app-search-result (closeModal)="closeModalChild($event)" [tableName]='searchString'> </app-search-result>
+    </ng-template>
+  </ion-modal>
+  <ion-grid>
+    <form [formGroup]="destinatarioForm" (ngSubmit)="createDestinatario()">
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input formControlName="Nombre" label="Nombre"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input formControlName="ApellidoP" label="Apellido Paterno"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input formControlName="ApellidoM" label="Apellido Materno"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-select formControlName="IDPais" label="Paises" label-placement="floating">
+              <ion-select-option *ngFor="let element of Paises" [value]="element.IDPais"> {{element.Pais}} </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-select formControlName="IDEstado" label="Estados" label-placement="floating">
+              <ion-select-option *ngFor="let element of Estados" [value]="element.IDEstados"> {{element.Estado}} </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label> Selecciona un código postal </ion-label>
+            <ion-button (click)="searchOptionSelected()"> Buscar </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input formControlName="Calle" label=" Calle"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input formControlName="Numero" label="Número"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item> Código postal seleccionada: {{destinatarioForm.value.IDCP}} </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input formControlName="Correo" label=" Correo"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input type="digit" formControlName="Telefono" label=" Teléfono"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button [disabled]="!destinatarioForm.valid" expand="block" (click)="createDestinatario()"> crear </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-grid>
+
+
+</ion-content>
