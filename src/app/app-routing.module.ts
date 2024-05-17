@@ -14,6 +14,14 @@ const routes: Routes = [
   {
     path: 'nueva-entrega',
     loadChildren: () => import('./nueva-entrega/nueva-entrega.module').then( m => m.NuevaEntregaPageModule)
+  },
+  {
+    path: 'cancelar-paquete',
+    loadChildren: () => import('./cancelar-paquete/cancelar-paquete.module').then( m => m.CancelarPaquetePageModule)
+  },
+  {
+    path: 'consultas',
+    loadChildren: () => import('./consultas/consultas.module').then( m => m.ConsultasPageModule)
   }
 ];
 

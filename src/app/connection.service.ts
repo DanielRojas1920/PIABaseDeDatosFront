@@ -34,6 +34,12 @@ export class ConnectionService {
       return data
     }));
   }
+
+  async cancelPaquete(table: string, id : number){
+    this.http.delete('http://localhost:3000/general/'+table+'/'+id.toString()).subscribe((data) => {
+      console.log(data);
+    })
+  }
 }
 
   

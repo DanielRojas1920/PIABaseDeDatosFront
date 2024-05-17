@@ -17,13 +17,14 @@ export class NuevoPaquetePage implements OnInit {
   idSelectedDestinatarios: string='';
   selector:number=0;
   idSelectedSucursal: string = '';
+  
 
   paquetesForm = this.formBuilder.group({
     Desc: ['', Validators.required],
-    Ancho: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*.[0-9]*')])],
-    Largo: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*.[0-9]*')])],
-    Alto: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*.[0-9]*')])],
-    Peso: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*.[0-9]*')])],
+    Ancho: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*(.[0-9]+)?')])],
+    Largo: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*(.[0-9]+)?')])],
+    Alto: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*(.[0-9]+)?')])],
+    Peso: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*(.[0-9]+)?')])],
     EsFragil: [''],
     IDTipo: ['', Validators.required],
     IDCliente: ['', Validators.required],
@@ -114,7 +115,7 @@ export class NuevoPaquetePage implements OnInit {
     console.log(row);
 
     this.httpService.insertRow('Paquetes', row);
-    //this.paquetesForm.reset();
+    this.paquetesForm.reset();
   }
 
 

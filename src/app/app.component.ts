@@ -9,9 +9,8 @@ export class AppComponent {
   public appPages = [
     { title: 'Nuevo Paquete', url: '/nuevo-paquete', icon: "cube"},
     { title: 'Nueva Entrega', url: '/nueva-entrega', icon: "car"},
+    { title: 'Cancelar Paquete', url: '/cancelar-paquete', icon: "trash"},
+    { title: 'Consultar Paquetes', url: '/consultas', icon: 'search' }
   ];
-  constructor(private connection: ConnectionService) {
-    connection.getRows('Clientes')
-
-  }
+  constructor(private connection: ConnectionService) {}
 }

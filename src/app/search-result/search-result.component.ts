@@ -30,6 +30,7 @@ export class SearchResultComponent  implements OnInit {
   async loadRows(){
       this.http.getRows(this.tableName).then((response) => {
         response.subscribe((data) => {
+          console.log(data);
           let aux = (data as Array<any>)
           let auxRow:any;
           for (let i = 0; i<aux.length; i++) {
@@ -46,13 +47,15 @@ export class SearchResultComponent  implements OnInit {
           auxRow = Object.keys(aux[0])
           this.atributes = Object.keys(aux[0]).map((key:any) => {
             if (key.slice(0,2)=== 'ID' && key !== auxRow[0]){
-              return Object.keys(aux[0][key]).slice(1);
+              if (typeof aux[0][key] === 'object')
+                return Object.keys(aux[0][key]).slice(1);
+              else
+                return key;
             }
             else{
               return key;
             }
           }).reduce((acc,val) => acc.concat(val), [])
-          console.log(this.rows);
           this.lenghtCol= this.atributes.length;
         })
       })

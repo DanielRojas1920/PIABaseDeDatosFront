@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NuevaEntregaPageRoutingModule } from './nueva-entrega-routing.module';
+import { CancelarPaquetePageRoutingModule } from './cancelar-paquete-routing.module';
 
-import { NuevaEntregaPage } from './nueva-entrega.page';
+import { CancelarPaquetePage } from './cancelar-paquete.page';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -14,10 +14,10 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    NuevaEntregaPageRoutingModule,
+    CancelarPaquetePageRoutingModule,
     ReactiveFormsModule,
     SharedModule,
   ],
-  declarations: [NuevaEntregaPage]
+  declarations: [CancelarPaquetePage]
 })
-export class NuevaEntregaPageModule {}
+export class CancelarPaquetePageModule {}

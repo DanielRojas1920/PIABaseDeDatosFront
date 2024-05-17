@@ -10,6 +10,7 @@ import { NuevoPaquetePage } from './nuevo-paquete.page';
 import { SearchResultComponent } from '../search-result/search-result.component';
 import { CreateClienteComponent } from '../create-cliente/create-cliente.component';
 import { CreateDestinatarioComponent } from '../create-destinatario/create-destinatario.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -18,9 +19,9 @@ import { CreateDestinatarioComponent } from '../create-destinatario/create-desti
     IonicModule,
     NuevoPaquetePageRoutingModule,
     ReactiveFormsModule,
+    SharedModule,
   ],
   declarations: [NuevoPaquetePage, 
-    SearchResultComponent, 
     CreateClienteComponent,
     CreateDestinatarioComponent,]
 })

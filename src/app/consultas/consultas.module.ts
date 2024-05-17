@@ -4,9 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NuevaEntregaPageRoutingModule } from './nueva-entrega-routing.module';
+import { ConsultasPageRoutingModule } from './consultas-routing.module';
 
-import { NuevaEntregaPage } from './nueva-entrega.page';
+import { ConsultasPage } from './consultas.page';
+import { SearchResultComponent } from '../search-result/search-result.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -14,10 +15,10 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    NuevaEntregaPageRoutingModule,
+    ConsultasPageRoutingModule,
     ReactiveFormsModule,
     SharedModule,
   ],
-  declarations: [NuevaEntregaPage]
+  declarations: [ConsultasPage]
 })
-export class NuevaEntregaPageModule {}
+export class ConsultasPageModule {}

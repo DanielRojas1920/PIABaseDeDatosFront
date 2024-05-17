@@ -12,36 +12,36 @@
       <app-search-result (closeModal)="closeModalChild($event)" [tableName]='searchString'> </app-search-result>
     </ng-template>
   </ion-modal>
-  <ion-grid>
+  <ion-grid [fixed]="true">
     <form [formGroup]="destinatarioForm" (ngSubmit)="createDestinatario()">
       <ion-row>
         <ion-col size="4">
           <ion-item>
-            <ion-input formControlName="Nombre" label="Nombre"></ion-input>
+            <ion-input formControlName="Nombre" label="Nombre" labelPlacement="floating"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="4">
           <ion-item>
-            <ion-input formControlName="ApellidoP" label="Apellido Paterno"></ion-input>
+            <ion-input formControlName="ApellidoP" label="Apellido Paterno" labelPlacement="floating"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="4">
           <ion-item>
-            <ion-input formControlName="ApellidoM" label="Apellido Materno"></ion-input>
+            <ion-input formControlName="ApellidoM" label="Apellido Materno" labelPlacement="floating"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="4">
           <ion-item>
-            <ion-select formControlName="IDPais" label="Paises" label-placement="floating">
+            <ion-select formControlName="IDPais" label="Paises" labelPlacement="floating">
               <ion-select-option *ngFor="let element of Paises" [value]="element.IDPais"> {{element.Pais}} </ion-select-option>
             </ion-select>
           </ion-item>
         </ion-col>
         <ion-col size="4">
           <ion-item>
-            <ion-select formControlName="IDEstado" label="Estados" label-placement="floating">
+            <ion-select formControlName="IDEstado" label="Estados" labelPlacement="floating">
               <ion-select-option *ngFor="let element of Estados" [value]="element.IDEstados"> {{element.Estado}} </ion-select-option>
             </ion-select>
           </ion-item>
@@ -56,12 +56,12 @@
       <ion-row>
         <ion-col size="4">
           <ion-item>
-            <ion-input formControlName="Calle" label=" Calle"></ion-input>
+            <ion-input formControlName="Calle" label=" Calle" labelPlacement="floating"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="4">
           <ion-item>
-            <ion-input formControlName="Numero" label="Número"></ion-input>
+            <ion-input formControlName="Numero" label="Número" labelPlacement="floating"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="4">
@@ -69,20 +69,25 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size="4">
+        <ion-col size="6">
           <ion-item>
-            <ion-input formControlName="Correo" label=" Correo"></ion-input>
+            <ion-input formControlName="Correo" label=" Correo" labelPlacement="floating"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-input type="digit" formControlName="Telefono" label=" Teléfono" labelPlacement="floating"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col size="4">
-          <ion-item>
-            <ion-input type="digit" formControlName="Telefono" label=" Teléfono"></ion-input>
-          </ion-item>
         </ion-col>
-        <ion-col size="4">
+      </ion-row>
+      <ion-row>
+        <ion-col>
           <ion-button [disabled]="!destinatarioForm.valid" expand="block" (click)="createDestinatario()"> crear </ion-button>
         </ion-col>
       </ion-row>
+
     </form>
   </ion-grid>
 

@@ -13,4 +13,72 @@
       <ion-title size="large">Nueva Entrega</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  
+  <ion-modal id="tableModal" [isOpen]="isModalOpen" [canDismiss]="canDismiss">
+    <ng-template>
+      <app-search-result (closeModal)="closeModal($event)" [tableName]="this.searchOptionSelected"> </app-search-result>
+    </ng-template>
+  </ion-modal>
+
+
+  <ion-grid [fixed]="true">
+    <ion-form [formGroup]="entregasForm" (ngSubmit)="createEntrega()">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label> Selecciona un paquete  </ion-label>
+            <ion-button (click)="changeSearchOptionSelected('Paquetes')"> Buscar </ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-label> Paquete seleccionado: {{entregasForm.value.IDPaquetes}} </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label> Selecciona un transporte  </ion-label>
+            <ion-button (click)="changeSearchOptionSelected('Transportes')"> Buscar </ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-label> Transporte seleccionada: {{entregasForm.value.IDTransporte}} </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label> Selecciona la fecha de entrega esperada </ion-label>
+            <ion-datetime-button datetime="datetimeE"></ion-datetime-button>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label> Selecciona la fecha de salida esperada </ion-label>
+            <ion-datetime-button datetime="datetimeS"></ion-datetime-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>  <ion-button (click)="createEntrega()" expand="block" [disabled]="!entregasForm.valid"> Registrar </ion-button> </ion-col>
+      </ion-row>
+    </ion-form>
+  </ion-grid>
+
+
+
+
 </ion-content>
+
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime value="{{FechaEntrega}}" id="datetimeE" [showDefaultButtons]="true"></ion-datetime>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime value="{{FechaSalida}}" id="datetimeS" [showDefaultButtons]="true"></ion-datetime>
+  </ng-template>
+</ion-modal>
+
+
