@@ -22,6 +22,18 @@ const routes: Routes = [
   {
     path: 'consultas',
     loadChildren: () => import('./consultas/consultas.module').then( m => m.ConsultasPageModule)
+  },
+  {
+    path: 'update-cliente',
+    loadChildren: () => import('./update-cliente/update-cliente.module').then( m => m.UpdateClientePageModule)
+  },
+  {
+    path: 'update-destinatario',
+    loadChildren: () => import('./update-destinatario/update-destinatario.module').then( m => m.UpdateDestinatarioPageModule)
+  },
+  {
+    path: 'update-paquete',
+    loadChildren: () => import('./update-paquete/update-paquete.module').then( m => m.UpdatePaquetePageModule)
   }
 ];
 

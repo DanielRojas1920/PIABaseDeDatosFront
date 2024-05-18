@@ -30,7 +30,6 @@ export class SearchResultComponent  implements OnInit {
   async loadRows(){
       this.http.getRows(this.tableName).then((response) => {
         response.subscribe((data) => {
-          console.log(data);
           let aux = (data as Array<any>)
           let auxRow:any;
           for (let i = 0; i<aux.length; i++) {

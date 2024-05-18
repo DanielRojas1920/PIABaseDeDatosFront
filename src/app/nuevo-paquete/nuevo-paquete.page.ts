@@ -98,7 +98,7 @@ export class NuevoPaquetePage implements OnInit {
   }
 
 
-  createPaquete(){
+  async createPaquete(){
     let row = {
       'Desc': this.paquetesForm.value.Desc,
       'IDTipo': Number(this.paquetesForm.value.IDTipo),
@@ -115,7 +115,7 @@ export class NuevoPaquetePage implements OnInit {
     console.log(row);
 
     this.httpService.insertRow('Paquetes', row);
-    this.paquetesForm.reset();
+    await this.paquetesForm.reset();
   }
 
 

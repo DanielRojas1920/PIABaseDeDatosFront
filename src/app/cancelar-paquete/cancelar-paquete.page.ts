@@ -43,6 +43,6 @@ export class CancelarPaquetePage implements OnInit {
   async deletePaquete(){
     let idPaquete = Number(this.cancelarPaqueteForm.value.IDPaquetes);
     await this.http.cancelPaquete('Paquetes', idPaquete);
-    this.cancelarPaqueteForm.reset();
+    await this.cancelarPaqueteForm.reset();
   }
 }

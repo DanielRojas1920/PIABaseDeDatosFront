@@ -21,8 +21,6 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     SharedModule,
   ],
-  declarations: [NuevoPaquetePage, 
-    CreateClienteComponent,
-    CreateDestinatarioComponent,]
+  declarations: [NuevoPaquetePage]
 })
 export class NuevoPaquetePageModule {}

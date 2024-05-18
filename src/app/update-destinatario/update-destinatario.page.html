@@ -1,0 +1,113 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Actualizar Destinatario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-modal id="tableModal" [isOpen]="isModalOpenChild" [canDismiss]="canDismissChild">
+  <ng-template>
+    <app-search-result (closeModal)="closeModalChild($event)" [tableName]='searchString'> </app-search-result>
+  </ng-template>
+</ion-modal>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Actualizar Destinatario</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid [fixed]="true">
+    <form [formGroup]="destinatarioForm" (ngSubmit)="updateDestinatario()">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label> Selecciona a un Destinatario  </ion-label>
+            <ion-button (click)="changeSearchOptionSelected('Destinatarios')"> Buscar </ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-label> Destinatario seleccionado: {{destinatarioForm.value.IDDestinatarios}} </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input formControlName="Nombre" label="Nombre" labelPlacement="floating"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input formControlName="ApellidoP" label="Apellido Paterno" labelPlacement="floating"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input formControlName="ApellidoM" label="Apellido Materno" labelPlacement="floating"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-button slot="start" fill="outline" (click)="resetPais()"> <ion-icon name="close-circle-outline"></ion-icon> </ion-button>
+            <ion-select formControlName="IDPais" label="Paises" labelPlacement="floating">
+              <ion-select-option *ngFor="let element of Paises" [value]="element.IDPais"> {{element.Pais}} </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-button slot="start" fill="outline" (click)="resetEstado()"> <ion-icon name="close-circle-outline"></ion-icon> </ion-button>
+            <ion-select formControlName="IDEstado" label="Estados" labelPlacement="floating">
+              <ion-select-option *ngFor="let element of Estados" [value]="element.IDEstados"> {{element.Estado}} </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-button slot="start" fill="outline" (click)="resetCP()"> <ion-icon name="close-circle-outline"></ion-icon> </ion-button>
+            <ion-label> Selecciona un código postal </ion-label>
+            <ion-button (click)="changeSearchOptionSelected('CP')"> Buscar </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input formControlName="Calle" label=" Calle" labelPlacement="floating"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-input formControlName="Numero" label="Número" labelPlacement="floating"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item> Código postal seleccionada: {{destinatarioForm.value.IDCP}} </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-input formControlName="Correo" label=" Correo" labelPlacement="floating"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-input type="digit" formControlName="Telefono" label=" Teléfono" labelPlacement="floating"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button [disabled]="!destinatarioForm.valid" expand="block" type="submit"> Actualizar </ion-button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+  </ion-grid>
+
+</ion-content>

@@ -50,7 +50,7 @@ export class NuevaEntregaPage implements OnInit {
     
   }
 
-  createEntrega(){
+  async createEntrega(){
     let row= {
       'IDPaquetes': this.entregasForm.value.IDPaquetes,
       'IDTransporte': this.entregasForm.value.IDTransporte,
@@ -60,7 +60,7 @@ export class NuevaEntregaPage implements OnInit {
 
     this.http.insertRow('Entregas', row);
 
-    this.entregasForm.reset();
+    await this.entregasForm.reset();
   }
 
 }

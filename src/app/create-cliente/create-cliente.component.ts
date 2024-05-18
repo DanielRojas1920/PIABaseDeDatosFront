@@ -38,7 +38,7 @@ export class CreateClienteComponent  implements OnInit {
       'Telefono': this.clienteForm.value.Telefono,
     }
     await this.http.insertRow('Clientes', insert);
-    this.clienteForm.reset();
+    await this.clienteForm.reset();
   }
 
 }

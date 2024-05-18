@@ -69,7 +69,7 @@ export class CreateDestinatarioComponent  implements OnInit {
       'ClaveRecepcion': claveRecepcion,
     };
     await this.http.insertRow('Destinatarios', row);
-    this.destinatarioForm.reset();
+    await this.destinatarioForm.reset();
   }
 
   searchOptionSelected(){

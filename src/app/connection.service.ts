@@ -40,6 +40,12 @@ export class ConnectionService {
       console.log(data);
     })
   }
+
+  async UpdateTable(table: string, body: any, id:string){
+    this.http.put('http://localhost:3000/general/'+table+'/'+id, body=body).subscribe((data) => {
+      console.log(data);
+    })
+  }
 }
 
   
