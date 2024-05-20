@@ -23,9 +23,9 @@ export class UpdateDestinatarioPage implements OnInit {
 
   destinatarioForm = this.formBuilder.group({
     IDDestinatarios: ['', Validators.required],
-    Nombre: ['', Validators.compose([Validators.pattern('[a-zA-Z]*')])],
-    ApellidoP: ['', Validators.compose([Validators.pattern('[a-zA-Z]*')])],
-    ApellidoM: ['', Validators.compose([ Validators.pattern('[a-zA-Z]*')])],
+    Nombre: ['', Validators.compose([Validators.pattern('[a-zA-Z]* [a-zA-Z]*')])],
+    ApellidoP: ['', Validators.compose([Validators.pattern('[a-zA-Z]* [a-zA-Z]*')])],
+    ApellidoM: ['', Validators.compose([ Validators.pattern('[a-zA-Z]* [a-zA-Z]*')])],
     Correo: ['', Validators.compose([Validators.pattern('[0-9a-zA-Z-.]*@[A-za-z]*.com')])],
     Telefono: ['', Validators.compose([ Validators.pattern('[0-9]*')])],
     IDPais: [''],

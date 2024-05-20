@@ -7,12 +7,6 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-alert
-  trigger="confirmation"
-  header="{{messagetitle}}"
-  message="{{message}}"
-  [buttons]="alertButtons"
-></ion-alert>
 
 <ion-content [fullscreen]="true" class="ion-padding">
 <ion-grid [fixed]="true">
@@ -48,7 +42,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-button [disabled]="!clienteForm.valid" type="submit" expand="block"> Crear </ion-button>
+        <ion-button  [disabled]="!clienteForm.valid" type="submit" expand="block"> Crear </ion-button>
       </ion-col>
     </ion-row>
   </form>
