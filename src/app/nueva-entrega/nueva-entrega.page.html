@@ -7,6 +7,13 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-alert
+  trigger="confirmation"
+  header="{{messagetitle}}"
+  message="{{message}}"
+  [buttons]="alertButtons"
+></ion-alert>
+
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -47,7 +54,7 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-label> Selecciona la fecha de entrega esperada </ion-label>
+            <ion-label> Selecciona la fecha de entrega </ion-label>
             <ion-datetime-button datetime="datetimeE"></ion-datetime-button>
           </ion-item>
         </ion-col>

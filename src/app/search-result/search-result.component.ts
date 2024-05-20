@@ -17,6 +17,9 @@ export class SearchResultComponent  implements OnInit {
   DestinatarioPaquete: any[]=[];
   DestinatarioAtributes: any;
   idSelectedDestinatario: number=0;
+  alertButtons = ['OK'];
+  messagetitle = 'Ha ocurrido un error.';
+  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
 
 
   @Output() closeModal= new EventEmitter<number>();
@@ -25,7 +28,6 @@ export class SearchResultComponent  implements OnInit {
 
   async ngOnInit() {
     await this.loadRows();
-    console.log(this.DestinatarioPaquete)
   }
 
   EmitCloseModal(){
@@ -35,7 +37,6 @@ export class SearchResultComponent  implements OnInit {
   async loadRows(){
       this.http.getRows(this.tableName).then((response) => {
         response.subscribe((data) => {
-          console.log(data)
           let aux = (data as Array<any>)
           let auxRow:any;
           if (this.tableName.includes('Paquetes')){
@@ -79,7 +80,7 @@ export class SearchResultComponent  implements OnInit {
                 }
               }).reduce((acc,val) => acc.concat(val),[]);
               this.DestinatarioPaquete.push(auxRow);
-              console.log(this.DestinatarioPaquete)
+              
             }
             auxRow = Object.keys(DestinatarioPaqueteAux[0])
             this.DestinatarioAtributes = Object.keys(DestinatarioPaqueteAux[0]).map((key:any) => {

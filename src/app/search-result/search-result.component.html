@@ -8,6 +8,14 @@
     <ion-title *ngIf="tableName.includes('Paquetes')" size="large"> Paquetes </ion-title>
   </ion-toolbar>
 </ion-header>
+
+<ion-alert
+  trigger="confirmation"
+  header="{{messagetitle}}"
+  message="{{message}}"
+  [buttons]="alertButtons"
+></ion-alert>
+
 <ion-content [fullscreen]="true" class="ion-padding">
 <ion-item *ngIf="!tableName.includes('consultasSP')  && !tableName.includes('Paquetes')"> Selecciona el {{tableName}} </ion-item>
 <ion-item *ngIf="tableName.includes('Paquetes')"> Selecciona el paquete </ion-item>

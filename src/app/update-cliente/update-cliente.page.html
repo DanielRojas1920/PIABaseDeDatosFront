@@ -16,6 +16,13 @@
       <app-search-result (closeModal)="closeModal($event)" [tableName]="this.searchOptionSelected"> </app-search-result>
     </ng-template>
   </ion-modal>
+
+  <ion-alert
+  trigger="confirmation"
+  header="{{messagetitle}}"
+  message="{{message}}"
+  [buttons]="alertButtons"
+></ion-alert>
   
 
   <ion-grid [fixed]="true">

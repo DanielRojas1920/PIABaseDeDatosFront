@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ConnectionService } from '../connection.service';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-consultas',
@@ -14,6 +15,9 @@ export class ConsultasPage implements OnInit {
   canDismiss: boolean = false;
   EstadosPaquete: any;
   tipos: any;
+  alertButtons = ['OK'];
+  messagetitle = 'Ha ocurrido un error.';
+  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
 
   paquetesStatusForm = this.formBuilder.group({
     IDEstadoPaquete: ['', Validators.required]
@@ -47,35 +51,36 @@ export class ConsultasPage implements OnInit {
   }
 
   async changeSearchOptionSelected(id: number, repository: string){ // /consultasSP/:id/:Param
-    var url = 'consultasSP/'
-    switch (id) {
-      case 0:
-        url = url + id.toString() + '/aux';
-        this.searchOptionSelected = url;
-        break;
-      case 1:
-        url = url + id.toString() + '/' + this.paquetesStatusForm.value.IDEstadoPaquete;
-        this.searchOptionSelected = url;
-        break;
-      case 2:
-        url = url + id.toString() + '/' + this.paquetesClienteForm.value.IDCliente;
-        this.searchOptionSelected = url;
-        break;
-      case 3:
-        let array= Object.values(this.paquetesAvanzadoForm.value).map((value) => {
-          if (value === '') return 'null';
-          else return value;
-        })
-        url = url + id.toString() + '/' + array.join('0');
-        this.searchOptionSelected = url;
-        break;
+      var url = 'consultasSP/'
+      switch (id) {
+        case 0:
+          url = url + id.toString() + '/aux';
+          this.searchOptionSelected = url;
+          break;
+        case 1:
+          url = url + id.toString() + '/' + this.paquetesStatusForm.value.IDEstadoPaquete;
+          this.searchOptionSelected = url;
+          break;
+        case 2:
+          url = url + id.toString() + '/' + this.paquetesClienteForm.value.IDCliente;
+          this.searchOptionSelected = url;
+          break;
+        case 3:
+          let array= Object.values(this.paquetesAvanzadoForm.value).map((value) => {
+            if (value === '') return 'null';
+            else return value;
+          })
+          url = url + id.toString() + '/' + array.join('0');
+          this.searchOptionSelected = url;
+          break;
 
-      default:
-        this.searchOptionSelected = repository;
-    }
-    
-    await this.ChangeIsModalOpen(true);
-    await this.ChangeCanDismiss(false);
+        default:
+          this.searchOptionSelected = repository;
+      }
+      
+      await this.ChangeIsModalOpen(true);
+      await this.ChangeCanDismiss(false);
+
   }
   
 

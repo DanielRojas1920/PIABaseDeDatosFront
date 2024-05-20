@@ -21,6 +21,9 @@ export class UpdateClientePage implements OnInit {
   searchOptionSelected : string= '';
   isModalOpen: boolean = false;
   canDismiss: boolean = false;
+  alertButtons = ['OK'];
+  messagetitle = 'Ha ocurrido un error.';
+  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
 
   constructor(private formBuilder: FormBuilder, private http: ConnectionService) { }
 
@@ -28,25 +31,34 @@ export class UpdateClientePage implements OnInit {
   }
 
   async updateCliente(){
-    let row = {
-      'Nombre': this.clienteForm.value.Nombre,
-      'ApellidoP': this.clienteForm.value.ApellidoP,
-      'ApellidoM': this.clienteForm.value.ApellidoM,
-      'Correo': this.clienteForm.value.Correo,
-      'Telefono': this.clienteForm.value.Telefono,
-    };
-
-    for (let key of Object.keys(row)){
-      if (key in row && row[key as keyof typeof row] === ''){
-        delete row[key as keyof typeof row]
+    try {
+      let row = {
+        'Nombre': this.clienteForm.value.Nombre,
+        'ApellidoP': this.clienteForm.value.ApellidoP,
+        'ApellidoM': this.clienteForm.value.ApellidoM,
+        'Correo': this.clienteForm.value.Correo,
+        'Telefono': this.clienteForm.value.Telefono,
+      };
+  
+      for (let key of Object.keys(row)){
+        if (key in row && row[key as keyof typeof row] === ''){
+          delete row[key as keyof typeof row]
+        }
       }
+  
+      let Auxrow = JSON.stringify(row, null, 4);
+      this.messagetitle = 'Se ha realizado la operacion con éxito';
+      this.message = '';
+  
+      await this.http.UpdateTable('Clientes', JSON.parse(Auxrow), this.clienteForm.value.IDCliente || '');
+  
+      await this.clienteForm.reset()
+    }
+    catch(err){
+      this.messagetitle = 'Ha ocurrido un error.';
+      this.message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
     }
 
-    let Auxrow = JSON.stringify(row, null, 4);
-
-    await this.http.UpdateTable('Clientes', JSON.parse(Auxrow), this.clienteForm.value.IDCliente || '');
-
-    await this.clienteForm.reset()
   }
 
   ChangeIsModalOpen(bool: boolean){

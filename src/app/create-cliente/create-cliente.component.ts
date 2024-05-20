@@ -10,6 +10,10 @@ import { ConnectionService } from '../connection.service';
 export class CreateClienteComponent  implements OnInit {
   @Output() closeModal= new EventEmitter<number>();
 
+  alertButtons = ['OK'];
+  messagetitle = 'Ha ocurrido un error.';
+  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
+
   clienteForm = this.formBuilder.group({
     Nombre: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')])],
     ApellidoP: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')])],

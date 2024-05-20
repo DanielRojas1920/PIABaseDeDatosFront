@@ -17,6 +17,9 @@ export class UpdatePaquetePage implements OnInit {
   idSelectedDestinatarios: string='';
   selector:number=0;
   idSelectedSucursal: string = '';
+  alertButtons = ['OK'];
+  messagetitle = 'Ha ocurrido un error.';
+  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
   
 
   paquetesForm = this.formBuilder.group({
@@ -103,8 +106,8 @@ export class UpdatePaquetePage implements OnInit {
 
 
   async updatePaquete(){
-
-    
+    try{
+          
     let row = {
       'Desc': this.paquetesForm.value.Desc,
       'IDTipo': this.paquetesForm.value.IDTipo,
@@ -133,10 +136,17 @@ export class UpdatePaquetePage implements OnInit {
     }
     
     let Auxrow = JSON.stringify(row, null, 4);
+    this.messagetitle = 'Se ha realizado la operacion con éxito';
+    this.message = '';
 
     await this.httpService.UpdateTable('Paquetes', JSON.parse(Auxrow), this.paquetesForm.value.IDPaquete || '');
 
     await this.paquetesForm.reset();
+    }
+    catch(err){
+      this.messagetitle = 'Ha ocurrido un error.';
+      this.message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
+    }
   }
 
 

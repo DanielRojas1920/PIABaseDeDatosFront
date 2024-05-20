@@ -4,6 +4,13 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-alert
+  trigger="confirmation"
+  header="{{messagetitle}}"
+  message="{{message}}"
+  [buttons]="alertButtons"
+></ion-alert>
+
 <ion-modal id="tableModal" [isOpen]="isModalOpen" [canDismiss]="canDismiss">
   <ng-template>
     <app-search-result (closeModal)="closeModal($event)" [tableName]="this.searchOptionSelected"> </app-search-result>
@@ -21,7 +28,7 @@
     <ion-row>
       <ion-col>
         <h3> Paquetes agendados </h3>
-        <ion-button (click)="changeSearchOptionSelected(0,'')"> Buscar </ion-button>
+        <ion-button id="confirmation" (click)="changeSearchOptionSelected(0,'')"> Buscar </ion-button>
       </ion-col>
       <ion-col>
         <form [formGroup]="paquetesStatusForm" (ngSubmit)="changeSearchOptionSelected(1,'')">

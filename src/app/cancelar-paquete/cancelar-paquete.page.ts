@@ -13,6 +13,11 @@ export class CancelarPaquetePage implements OnInit {
   isModalOpen: boolean = false;
   canDismiss: boolean = true;
   idSelectedPaquetes: string='';
+  alertButtons = ['OK'];
+  messagetitle: string = '';
+  message: string = '';
+
+
 
   constructor(private http: ConnectionService, private formBuilder: FormBuilder) { 
   }
@@ -41,8 +46,17 @@ export class CancelarPaquetePage implements OnInit {
   }
 
   async deletePaquete(){
-    let idPaquete = Number(this.cancelarPaqueteForm.value.IDPaquetes);
-    await this.http.cancelPaquete('Paquetes', idPaquete);
-    await this.cancelarPaqueteForm.reset();
+    try{
+      let idPaquete = Number(this.cancelarPaqueteForm.value.IDPaquetes);
+      await this.http.cancelPaquete('Paquetes', idPaquete);
+      this.messagetitle = 'Se ha realizado la operacion con éxito';
+      this.message = '';
+      await this.cancelarPaqueteForm.reset();
+    }
+    catch(err){
+      this.messagetitle = 'Ha ocurrido un error.';
+      this.message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
+    }
+
   }
 }

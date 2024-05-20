@@ -17,6 +17,9 @@ export class NuevoPaquetePage implements OnInit {
   idSelectedDestinatarios: string='';
   selector:number=0;
   idSelectedSucursal: string = '';
+  alertButtons = ['OK'];
+  messagetitle = 'Ha ocurrido un error.';
+  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
   
 
   paquetesForm = this.formBuilder.group({
@@ -44,7 +47,6 @@ export class NuevoPaquetePage implements OnInit {
     this.httpService.getRows('Tipos').then((response) => {
       response.subscribe((data) => {
         this.tipos= data;
-        console.log(this.tipos)
       })
     });
   }

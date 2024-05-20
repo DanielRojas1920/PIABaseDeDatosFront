@@ -16,6 +16,9 @@ export class CreateDestinatarioComponent  implements OnInit {
   isModalOpenChild: boolean=false;
   canDismissChild: boolean=true;
   searchString: string= 'CP';
+  alertButtons = ['OK'];
+  messagetitle = 'Ha ocurrido un error.';
+  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
 
   destinatarioForm = this.formBuilder.group({
     Nombre: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')])],

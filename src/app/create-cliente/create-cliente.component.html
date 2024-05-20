@@ -6,6 +6,14 @@
     <ion-title size="large"> Nuevo Cliente </ion-title>
   </ion-toolbar>
 </ion-header>
+
+<ion-alert
+  trigger="confirmation"
+  header="{{messagetitle}}"
+  message="{{message}}"
+  [buttons]="alertButtons"
+></ion-alert>
+
 <ion-content [fullscreen]="true" class="ion-padding">
 <ion-grid [fixed]="true">
   <form [formGroup]="clienteForm" (ngSubmit)="createCliente()">

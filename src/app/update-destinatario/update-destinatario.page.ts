@@ -17,6 +17,9 @@ export class UpdateDestinatarioPage implements OnInit {
   isModalOpenChild: boolean=false;
   canDismissChild: boolean=true;
   searchString: string='';
+  alertButtons = ['OK'];
+  messagetitle = 'Ha ocurrido un error.';
+  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
 
   destinatarioForm = this.formBuilder.group({
     IDDestinatarios: ['', Validators.required],
@@ -53,30 +56,39 @@ export class UpdateDestinatarioPage implements OnInit {
   }
 
   async updateDestinatario(){
-    let row = {
-      'Nombre': this.destinatarioForm.value.Nombre,
-      'ApellidoP': this.destinatarioForm.value.ApellidoP,
-      'ApellidoM': this.destinatarioForm.value.ApellidoM,
-      'Correo': this.destinatarioForm.value.Correo,
-      'Telefono': this.destinatarioForm.value.Telefono,
-      'Numero': this.destinatarioForm.value.Numero,
-      'Calle': this.destinatarioForm.value.Calle,
-      'IDPais': this.destinatarioForm.value.IDPais,
-      'IDEstado': this.destinatarioForm.value.IDEstado,
-      'IDCP': this.destinatarioForm.value.IDCP,
-    };
-
-    for (let key of Object.keys(row)){
-      if (key in row && row[key as keyof typeof row] === ''){
-        delete row[key as keyof typeof row]
+    try{
+      let row = {
+        'Nombre': this.destinatarioForm.value.Nombre,
+        'ApellidoP': this.destinatarioForm.value.ApellidoP,
+        'ApellidoM': this.destinatarioForm.value.ApellidoM,
+        'Correo': this.destinatarioForm.value.Correo,
+        'Telefono': this.destinatarioForm.value.Telefono,
+        'Numero': this.destinatarioForm.value.Numero,
+        'Calle': this.destinatarioForm.value.Calle,
+        'IDPais': this.destinatarioForm.value.IDPais,
+        'IDEstado': this.destinatarioForm.value.IDEstado,
+        'IDCP': this.destinatarioForm.value.IDCP,
+      };
+  
+      for (let key of Object.keys(row)){
+        if (key in row && row[key as keyof typeof row] === ''){
+          delete row[key as keyof typeof row]
+        }
       }
+  
+      let Auxrow = JSON.stringify(row, null, 4);
+      this.messagetitle = 'Se ha realizado la operacion con éxito';
+      this.message = '';
+  
+      await this.http.UpdateTable('Destinatarios', JSON.parse(Auxrow), this.destinatarioForm.value.IDDestinatarios || '');
+  
+      await this.destinatarioForm.reset()
+    }
+    catch(err){
+      this.messagetitle = 'Ha ocurrido un error.';
+      this.message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
     }
 
-    let Auxrow = JSON.stringify(row, null, 4);
-
-    await this.http.UpdateTable('Destinatarios', JSON.parse(Auxrow), this.destinatarioForm.value.IDDestinatarios || '');
-
-    await this.destinatarioForm.reset()
   }
 
   changeSearchOptionSelected(table: string){
