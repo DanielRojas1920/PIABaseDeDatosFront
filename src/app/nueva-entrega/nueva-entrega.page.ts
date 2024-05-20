@@ -31,7 +31,13 @@ export class NuevaEntregaPage implements OnInit {
   }
 
   async changeSearchOptionSelected(str:string){
-    this.searchOptionSelected = str;
+    if (str.includes('Paquetes')){
+      this.searchOptionSelected = str + 'Disponibles/0';
+    }
+    else{
+      this.searchOptionSelected = str;
+    }
+
     this.isModalOpen = true;
     this.canDismiss = false;
   }
@@ -40,7 +46,7 @@ export class NuevaEntregaPage implements OnInit {
     this.isModalOpen = false;
     this.canDismiss = true;
 
-    if ($event !== 0 && this.searchOptionSelected === 'Paquetes'){
+    if ($event !== 0 && this.searchOptionSelected.includes('Paquetes')){
       this.entregasForm.get('IDPaquetes')?.setValue($event.toString());
     } 
 

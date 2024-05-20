@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Cancelar Paquete</ion-title>
+    <ion-title>Entregar Paquete</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,11 +13,11 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Cancelar Paquete</ion-title>
+      <ion-title size="large">Entregar Paquete</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-grid [fixed]="true">
-    <form [formGroup]="cancelarPaqueteForm" (ngSubmit)="deletePaquete()">
+    <form [formGroup]="EntregarPaqueteForm" (ngSubmit)="entregarPaquete()">
       <ion-row>
         <ion-col>
           <ion-item>
@@ -25,15 +25,31 @@
             <ion-button (click)="changeSearchOptionSelected('Paquetes')"> Buscar </ion-button>
           </ion-item>
           <ion-item>
-            <ion-label> Paquete seleccionado: {{cancelarPaqueteForm.value.IDPaquetes}} </ion-label>
+            <ion-label> Paquete seleccionado: {{EntregarPaqueteForm.value.IDPaquetes}} </ion-label>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-button id="confirmation" type="submit" expand="block" [disabled]="!cancelarPaqueteForm.valid"> Cancelar </ion-button>
+          <ion-item>
+            <ion-label> Selecciona la fecha de entrega </ion-label>
+            <ion-datetime-button datetime="datetimeE"></ion-datetime-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button id="confirmation" type="submit" expand="block" [disabled]="!EntregarPaqueteForm.valid"> Entregar </ion-button>
         </ion-col>
       </ion-row>
     </form>
   </ion-grid>
 </ion-content>
+
+
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime value="{{FechaEntrega}}" id="datetimeE" [showDefaultButtons]="true"></ion-datetime>
+  </ng-template>
+</ion-modal>
+

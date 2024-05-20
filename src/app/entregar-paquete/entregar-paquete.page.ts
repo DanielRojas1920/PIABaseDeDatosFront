@@ -3,21 +3,22 @@ import { ConnectionService } from '../connection.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-cancelar-paquete',
-  templateUrl: './cancelar-paquete.page.html',
-  styleUrls: ['./cancelar-paquete.page.scss'],
+  selector: 'app-entregar-paquete',
+  templateUrl: './entregar-paquete.page.html',
+  styleUrls: ['./entregar-paquete.page.scss'],
 })
-export class CancelarPaquetePage implements OnInit {
+export class EntregarPaquetePage implements OnInit {
 
   searchOptionSelected: string = '';
   isModalOpen: boolean = false;
   canDismiss: boolean = true;
   idSelectedPaquetes: string='';
+  FechaEntrega: string= new Date().toISOString().slice(0,-5);
 
   constructor(private http: ConnectionService, private formBuilder: FormBuilder) { 
   }
 
-  cancelarPaqueteForm = this.formBuilder.group({
+  EntregarPaqueteForm = this.formBuilder.group({
     'IDPaquetes': ['', Validators.required],
   })
 
@@ -25,7 +26,7 @@ export class CancelarPaquetePage implements OnInit {
   }
 
   async changeSearchOptionSelected(str:string){
-    this.searchOptionSelected = str + 'Disponibles/1';
+    this.searchOptionSelected = str + 'Disponibles/2';
     this.isModalOpen = true;
     this.canDismiss = false;
   }
@@ -35,14 +36,18 @@ export class CancelarPaquetePage implements OnInit {
     this.canDismiss = true;
 
     if ($event !== 0 && this.searchOptionSelected.includes('Paquetes')){
-      this.cancelarPaqueteForm.get('IDPaquetes')?.setValue($event.toString());
+      this.EntregarPaqueteForm.get('IDPaquetes')?.setValue($event.toString());
     }
     
   }
 
-  async deletePaquete(){
-    let idPaquete = Number(this.cancelarPaqueteForm.value.IDPaquetes);
-    await this.http.cancelPaquete('Paquetes', idPaquete);
-    await this.cancelarPaqueteForm.reset();
+  async entregarPaquete(){
+    let data = {
+      'IDPaquete': this.EntregarPaqueteForm.value.IDPaquetes,
+      'FechaEntrega': this.FechaEntrega,
+    }
+    await this.http.insertRow('EntregarPaquete', data);
+    await this.EntregarPaqueteForm.reset();
   }
 }
+

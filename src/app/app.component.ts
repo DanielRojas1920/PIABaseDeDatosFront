@@ -10,6 +10,7 @@ export class AppComponent {
     { title: 'Nuevo Paquete', url: '/nuevo-paquete', icon: "cube"},
     { title: 'Nueva Entrega', url: '/nueva-entrega', icon: "car"},
     { title: 'Cancelar Paquete', url: '/cancelar-paquete', icon: "trash"},
+    { title: 'Entregar Paquete', url: '/entregar-paquete',  icon: 'bag-check'},
     { title: 'Consultar Paquetes', url: '/consultas', icon: 'search' },
     { title: 'Actualizar Cliente', url: '/update-cliente', icon: 'cloud-upload'},
     { title: 'Actualizar Destinatario', url: '/update-destinatario', icon: 'cloud-upload' },

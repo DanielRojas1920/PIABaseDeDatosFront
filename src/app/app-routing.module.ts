@@ -34,6 +34,10 @@ const routes: Routes = [
   {
     path: 'update-paquete',
     loadChildren: () => import('./update-paquete/update-paquete.module').then( m => m.UpdatePaquetePageModule)
+  },
+  {
+    path: 'entregar-paquete',
+    loadChildren: () => import('./entregar-paquete/entregar-paquete.module').then( m => m.EntregarPaquetePageModule)
   }
 ];
 

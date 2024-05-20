@@ -83,7 +83,7 @@ export class UpdatePaquetePage implements OnInit {
     this.isModalOpen = false;
     this.canDismiss = true;
 
-    if ($event !== 0 && this.searchOptionSelected === 'Paquetes'){
+    if ($event !== 0 && this.searchOptionSelected.includes('Paquetes')){
       this.paquetesForm.get('IDPaquete')?.setValue($event.toString());
     }
 

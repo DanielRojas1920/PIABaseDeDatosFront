@@ -4,16 +4,18 @@
     <ion-buttons slot="end">
       <ion-button (click) = 'EmitCloseModal()'> Cerrar </ion-button>
     </ion-buttons>
-    <ion-title *ngIf="!tableName.includes('consultasSP')" size="large"> {{tableName}} </ion-title>
+    <ion-title *ngIf="!tableName.includes('consultasSP')  && !tableName.includes('Paquetes')" size="large"> {{tableName}} </ion-title>
+    <ion-title *ngIf="tableName.includes('Paquetes')" size="large"> Paquetes </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" class="ion-padding">
-<ion-item *ngIf="!tableName.includes('consultasSP')"> Selecciona el {{tableName}} </ion-item>
+<ion-item *ngIf="!tableName.includes('consultasSP')  && !tableName.includes('Paquetes')"> Selecciona el {{tableName}} </ion-item>
+<ion-item *ngIf="tableName.includes('Paquetes')"> Selecciona el paquete </ion-item>
 <ion-grid style="padding-top: 20px; --ion-grid-columns: {{lenghtCol}}">
   <ion-row>
     <ion-col size="1" id="atribute-column" *ngFor="let atribute of atributes"> {{atribute}} </ion-col>
   </ion-row>
-  <ion-row *ngFor="let row of rows" (click)="asignIdSelected(row[0])"> 
+  <ion-row *ngFor="let row of rows; let i = index" (click)="asignIdSelected(row[0], i)"> 
     <ion-col size="1"  id="row-column" *ngFor="let value of row"> {{value}} </ion-col>
   </ion-row>
 </ion-grid>
@@ -22,6 +24,16 @@
   id seleccionado: {{idSelected}}
 </ion-item>
 <ion-button (click)="EmitCloseModal()"> Aceptar </ion-button>
+
+<ion-grid *ngIf="tableName.includes('Paquetes')" style="padding-top: 20px; --ion-grid-columns: {{DestinatarioAtributes.length}}">
+  <h3> Datos del destinatario </h3>
+  <ion-row>
+    <ion-col size="1" id="atribute-column" *ngFor="let atribute of DestinatarioAtributes"> {{atribute}} </ion-col>
+  </ion-row>
+  <ion-row> 
+    <ion-col size="1"  id="row-column" *ngFor="let value of DestinatarioPaquete[idSelectedDestinatario]"> {{value}} </ion-col>
+  </ion-row>
+</ion-grid>
 
 </ion-content>
 

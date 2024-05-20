@@ -14,6 +14,10 @@ export class SearchResultComponent  implements OnInit {
   atributes : any;
   idSelected: number = 0;
   lenghtCol : number=0;
+  DestinatarioPaquete: any[]=[];
+  DestinatarioAtributes: any;
+  idSelectedDestinatario: number=0;
+
 
   @Output() closeModal= new EventEmitter<number>();
 
@@ -21,6 +25,7 @@ export class SearchResultComponent  implements OnInit {
 
   async ngOnInit() {
     await this.loadRows();
+    console.log(this.DestinatarioPaquete)
   }
 
   EmitCloseModal(){
@@ -30,38 +35,102 @@ export class SearchResultComponent  implements OnInit {
   async loadRows(){
       this.http.getRows(this.tableName).then((response) => {
         response.subscribe((data) => {
+          console.log(data)
           let aux = (data as Array<any>)
           let auxRow:any;
-          for (let i = 0; i<aux.length; i++) {
-            auxRow = Object.values(aux[i]).map((value:any) => {
-              if (typeof value === 'object'){
-                return Object.values(value).slice(1);
+          if (this.tableName.includes('Paquetes')){
+            var DestinatarioPaqueteAux: any[] = [];
+            for (let i = 0; i<aux.length; i++) {
+              DestinatarioPaqueteAux.push(aux[i]['IDDestinatarios']);
+              delete aux[i]['IDDestinatarios'];
+              auxRow = Object.values(aux[i]).map((value:any) => {
+                if (typeof value === 'object'){
+                  if (value['idCliente'] === undefined)
+                  return Object.values(value).slice(1);
+                  else return Object.values(value)[0];
+                }
+                else{
+                  return value;
+                }
+              }).reduce((acc,val) => acc.concat(val),[]);
+              this.rows.push(auxRow);
+            }
+            auxRow = Object.keys(aux[0])
+            this.atributes = Object.keys(aux[0]).map((key:any) => {
+              if (key.slice(0,2)=== 'ID' && key !== auxRow[0]){
+                if (typeof aux[0][key] === 'object' && key !== 'IDCliente')
+                  return Object.keys(aux[0][key]).slice(1);
+                else
+                  return key;
               }
               else{
-                return value;
-              }
-            }).reduce((acc,val) => acc.concat(val),[]);
-            this.rows.push(auxRow);
-          }
-          auxRow = Object.keys(aux[0])
-          this.atributes = Object.keys(aux[0]).map((key:any) => {
-            if (key.slice(0,2)=== 'ID' && key !== auxRow[0]){
-              if (typeof aux[0][key] === 'object')
-                return Object.keys(aux[0][key]).slice(1);
-              else
                 return key;
+              }
+            }).reduce((acc,val) => acc.concat(val), [])
+            this.lenghtCol= this.atributes.length;
+
+            for (let i = 0; i<DestinatarioPaqueteAux.length; i++) {
+              auxRow = Object.values(DestinatarioPaqueteAux[i]).map((value:any) => {
+                if (typeof value === 'object'){
+                  return Object.values(value).slice(1);
+                }
+                else {
+                  return value;
+                }
+              }).reduce((acc,val) => acc.concat(val),[]);
+              this.DestinatarioPaquete.push(auxRow);
+              console.log(this.DestinatarioPaquete)
             }
-            else{
-              return key;
+            auxRow = Object.keys(DestinatarioPaqueteAux[0])
+            this.DestinatarioAtributes = Object.keys(DestinatarioPaqueteAux[0]).map((key:any) => {
+              if (key.slice(0,2)=== 'ID' && key !== auxRow[0]){
+                if (typeof DestinatarioPaqueteAux[0][key] === 'object'){
+                  return Object.keys(DestinatarioPaqueteAux[0][key]).slice(1);
+                }
+                else
+                  return key;
+              }
+              else{
+                return key;
+              }
+            }).reduce((acc,val) => acc.concat(val), [])
+          }
+          else{
+            for (let i = 0; i<aux.length; i++) {
+              auxRow = Object.values(aux[i]).map((value:any) => {
+                if (typeof value === 'object'){
+                  return Object.values(value).slice(1);
+                }
+                else{
+                  return value;
+                }
+              }).reduce((acc,val) => acc.concat(val),[]);
+              this.rows.push(auxRow);
             }
-          }).reduce((acc,val) => acc.concat(val), [])
-          this.lenghtCol= this.atributes.length;
+            auxRow = Object.keys(aux[0])
+            this.atributes = Object.keys(aux[0]).map((key:any) => {
+              if (key.slice(0,2)=== 'ID' && key !== auxRow[0]){
+                if (typeof aux[0][key] === 'object')
+                  return Object.keys(aux[0][key]).slice(1);
+                else
+                  return key;
+              }
+              else{
+                return key;
+              }
+            }).reduce((acc,val) => acc.concat(val), [])
+            this.lenghtCol= this.atributes.length;
+          }
         })
       })
   }
 
-  asignIdSelected(id: number){
+  asignIdSelected(id: number, i:number){
+    if (this.tableName.includes('Paquetes')){
+      this.idSelectedDestinatario = i;
+    }
     this.idSelected = id;
+    
   }
 
 }
