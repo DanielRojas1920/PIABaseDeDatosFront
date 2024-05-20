@@ -21,9 +21,9 @@ export class CreateDestinatarioComponent  implements OnInit {
   message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
 
   destinatarioForm = this.formBuilder.group({
-    Nombre: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]* [a-zA-Z]*')])],
-    ApellidoP: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]* [a-zA-Z]*')])],
-    ApellidoM: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]* [a-zA-Z]*')])],
+    Nombre: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*( [a-zA-Z]*)?')])],
+    ApellidoP: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')])],
+    ApellidoM: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')])],
     Correo: ['', Validators.compose([Validators.required, Validators.pattern('[0-9a-zA-Z-.]*@[A-za-z]*.com')])],
     Telefono: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
     IDPais: ['', Validators.required],
