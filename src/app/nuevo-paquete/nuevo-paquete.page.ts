@@ -17,10 +17,7 @@ export class NuevoPaquetePage implements OnInit {
   idSelectedDestinatarios: string='';
   selector:number=0;
   idSelectedSucursal: string = '';
-  alertButtons = ['OK'];
-  messagetitle = 'Ha ocurrido un error.';
-  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
-  
+  Esfragil: boolean = false;
 
   paquetesForm = this.formBuilder.group({
     Desc: ['', Validators.required],
@@ -28,7 +25,6 @@ export class NuevoPaquetePage implements OnInit {
     Largo: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*(.[0-9]+)?')])],
     Alto: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*(.[0-9]+)?')])],
     Peso: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*(.[0-9]+)?')])],
-    EsFragil: [''],
     IDTipo: ['', Validators.required],
     IDCliente: ['', Validators.required],
     IDDestinatarios: ['', Validators.required],
@@ -56,6 +52,10 @@ export class NuevoPaquetePage implements OnInit {
     this.searchOptionSelected = str;
     await this.ChangeIsModalOpen(true);
     await this.ChangeCanDismiss(false);
+  }
+
+  changeEsfragil(){
+    this.Esfragil = !this.Esfragil;
   }
 
   async changeCreateClienteOptionSelected(){
@@ -99,6 +99,10 @@ export class NuevoPaquetePage implements OnInit {
     
   }
 
+  stringToBoolean(str: string): boolean {
+    return str.toLowerCase() === 'true';
+}
+
 
   async createPaquete(){
     let row = {
@@ -111,10 +115,9 @@ export class NuevoPaquetePage implements OnInit {
       'Alto': Number(this.paquetesForm.value.Alto),
       'Largo': Number(this.paquetesForm.value.Largo),
       'Peso': Number(this.paquetesForm.value.Peso),
-      'EsFragil': this.paquetesForm.value.EsFragil?1:0,
+      'EsFragil': this.Esfragil,
     }
 
-    console.log(row);
 
     this.httpService.insertRow('Paquetes', row);
     await this.paquetesForm.reset();

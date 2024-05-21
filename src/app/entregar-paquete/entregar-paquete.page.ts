@@ -14,9 +14,6 @@ export class EntregarPaquetePage implements OnInit {
   canDismiss: boolean = true;
   idSelectedPaquetes: string='';
   FechaEntrega: string= new Date().toISOString().slice(0,-5);
-  alertButtons = ['OK'];
-  messagetitle = 'Ha ocurrido un error.';
-  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
 
   constructor(private http: ConnectionService, private formBuilder: FormBuilder) { 
   }

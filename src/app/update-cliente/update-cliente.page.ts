@@ -11,9 +11,9 @@ export class UpdateClientePage implements OnInit {
 
   clienteForm = this.formBuilder.group({
     'IDCliente': ['', Validators.required],
-    'Nombre': ['', Validators.compose([ Validators.pattern('[a-zA-Z]*( [a-zA-Z]*)?*')])],
-    'ApellidoP': ['', Validators.compose([ Validators.pattern('[a-zA-Z]*')])],
-    'ApellidoM': ['', Validators.compose([ Validators.pattern('[a-zA-Z]*')])],
+    'Nombre': ['', Validators.compose([ Validators.pattern('[a-zA-ZáéíóúÁÉÍÓÚ]*( [a-zA-ZáéíóúÁÉÍÓÚ]+)?')])],
+    'ApellidoP': ['', Validators.compose([ Validators.pattern('[a-zA-ZáéíóúÁÉÍÓÚ]*( [a-zA-ZáéíóúÁÉÍÓÚ]+)?')])],
+    'ApellidoM': ['', Validators.compose([ Validators.pattern('[a-zA-ZáéíóúÁÉÍÓÚ]*( [a-zA-ZáéíóúÁÉÍÓÚ]+)?')])],
     'Correo': ['', Validators.compose([ Validators.pattern('[0-9a-zA-Z-.]*@[A-za-z]*.com')])],
     'Telefono': ['', Validators.compose([ Validators.pattern('[0-9]*')])],
   })
@@ -21,9 +21,6 @@ export class UpdateClientePage implements OnInit {
   searchOptionSelected : string= '';
   isModalOpen: boolean = false;
   canDismiss: boolean = false;
-  alertButtons = ['OK'];
-  messagetitle = 'Ha ocurrido un error.';
-  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
 
   constructor(private formBuilder: FormBuilder, private http: ConnectionService) { }
 
@@ -31,7 +28,7 @@ export class UpdateClientePage implements OnInit {
   }
 
   async updateCliente(){
-    try {
+
       let row = {
         'Nombre': this.clienteForm.value.Nombre,
         'ApellidoP': this.clienteForm.value.ApellidoP,
@@ -41,23 +38,18 @@ export class UpdateClientePage implements OnInit {
       };
   
       for (let key of Object.keys(row)){
-        if (key in row && row[key as keyof typeof row] === ''){
+        if (key in row && row[key as keyof typeof row] === '' || row[key as keyof typeof row] === null){
           delete row[key as keyof typeof row]
         }
       }
   
       let Auxrow = JSON.stringify(row, null, 4);
-      this.messagetitle = 'Se ha realizado la operacion con éxito';
-      this.message = '';
+
   
       await this.http.UpdateTable('Clientes', JSON.parse(Auxrow), this.clienteForm.value.IDCliente || '');
   
       await this.clienteForm.reset()
-    }
-    catch(err){
-      this.messagetitle = 'Ha ocurrido un error.';
-      this.message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
-    }
+
 
   }
 

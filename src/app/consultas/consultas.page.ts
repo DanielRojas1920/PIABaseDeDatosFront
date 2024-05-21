@@ -15,10 +15,8 @@ export class ConsultasPage implements OnInit {
   canDismiss: boolean = false;
   EstadosPaquete: any;
   tipos: any;
-  alertButtons = ['OK'];
-  messagetitle = 'Ha ocurrido un error.';
-  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
 
+  
   paquetesStatusForm = this.formBuilder.group({
     IDEstadoPaquete: ['', Validators.required]
   })

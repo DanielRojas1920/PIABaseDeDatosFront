@@ -6,16 +6,10 @@
 
 <ion-modal id="tableModal" [isOpen]="isModalOpenChild" [canDismiss]="canDismissChild">
   <ng-template>
-    <app-search-result (closeModal)="closeModalChild($event)" [tableName]='searchString'> </app-search-result>
+    <app-search-result (closeModal)="closeModalChild($event)" [tableName]="searchString"> </app-search-result>
   </ng-template>
 </ion-modal>
 
-<ion-alert
-  trigger="confirmation"
-  header="{{messagetitle}}"
-  message="{{message}}"
-  [buttons]="alertButtons"
-></ion-alert>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">

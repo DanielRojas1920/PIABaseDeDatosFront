@@ -11,12 +11,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-alert
-  trigger="confirmation"
-  header="{{messagetitle}}"
-  message="{{message}}"
-  [buttons]="alertButtons"
-></ion-alert>
+
 
   <ion-modal id="tableModal" [isOpen]="isModalOpen" [canDismiss]="canDismiss">
     <ng-template>
@@ -58,7 +53,7 @@
         </ion-col>
         <ion-col> 
           <ion-item >
-            <ion-checkbox [indeterminate]="true" formControlName="EsFragil"> El producto es frágil? </ion-checkbox>        
+            <ion-checkbox [indeterminate]="true" (ionChange)="changeEsfragil()"> El producto es frágil? </ion-checkbox>        
           </ion-item>
         </ion-col>
       </ion-row>

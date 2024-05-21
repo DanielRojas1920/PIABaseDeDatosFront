@@ -4,26 +4,21 @@
   </ion-toolbar>
 </ion-header>
 
+
+
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Actualizar Cliente</ion-title>
     </ion-toolbar>
   </ion-header>
+  
 
   <ion-modal id="tableModal" [isOpen]="isModalOpen" [canDismiss]="canDismiss">
     <ng-template>
-      <app-search-result (closeModal)="closeModal($event)" [tableName]="this.searchOptionSelected"> </app-search-result>
+      <app-search-result (closeModal)="closeModal($event)" [tableName]="searchOptionSelected"> </app-search-result>
     </ng-template>
   </ion-modal>
-
-  <ion-alert
-  trigger="confirmation"
-  header="{{messagetitle}}"
-  message="{{message}}"
-  [buttons]="alertButtons"
-></ion-alert>
-  
 
   <ion-grid [fixed]="true">
     <form [formGroup]="clienteForm" (ngSubmit)="updateCliente()">
@@ -63,7 +58,7 @@
         </ion-col>
         <ion-col size="6">
           <ion-item>
-            <ion-input maxlength="12" formControlName="Telefono" type="digit" label="Teléfono" labelPlacement="floating"></ion-input>
+            <ion-input maxlength="12" formControlName="Telefono" label="Teléfono" labelPlacement="floating"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>

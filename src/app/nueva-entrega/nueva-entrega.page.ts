@@ -17,9 +17,6 @@ export class NuevaEntregaPage implements OnInit {
   idSelectedTranportes: string='';
   FechaEntrega: string= new Date().toISOString().slice(0,-5);
   FechaSalida: string= new Date().toISOString().slice(0,-5);
-  alertButtons = ['OK'];
-  messagetitle = 'Ha ocurrido un error.';
-  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
 
   constructor(private http: ConnectionService, private formBuilder: FormBuilder) { 
   }
@@ -59,7 +56,7 @@ export class NuevaEntregaPage implements OnInit {
   }
 
   async createEntrega(){
-    try{
+
       let row= {
         'IDPaquetes': this.entregasForm.value.IDPaquetes,
         'IDTransporte': this.entregasForm.value.IDTransporte,
@@ -69,14 +66,9 @@ export class NuevaEntregaPage implements OnInit {
   
       this.http.insertRow('Entregas', row);
       
-      this.messagetitle = 'Se ha realizado la operacion con éxito';
-      this.message = '';
+
       await this.entregasForm.reset();
-    }
-    catch (err){
-      this.messagetitle = 'Ha ocurrido un error.';
-      this.message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
-    }
+
 
   }
 

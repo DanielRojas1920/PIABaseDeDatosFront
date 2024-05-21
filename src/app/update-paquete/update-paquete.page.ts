@@ -17,10 +17,7 @@ export class UpdatePaquetePage implements OnInit {
   idSelectedDestinatarios: string='';
   selector:number=0;
   idSelectedSucursal: string = '';
-  alertButtons = ['OK'];
-  messagetitle = 'Ha ocurrido un error.';
-  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
-  
+  Esfragil: string= '';
 
   paquetesForm = this.formBuilder.group({
     IDPaquete: ['', Validators.required],
@@ -29,7 +26,6 @@ export class UpdatePaquetePage implements OnInit {
     Largo: ['', Validators.compose([Validators.pattern('[0-9]*(.[0-9]+)?')])],
     Alto: ['', Validators.compose([ Validators.pattern('[0-9]*(.[0-9]+)?')])],
     Peso: ['', Validators.compose([ Validators.pattern('[0-9]*(.[0-9]+)?')])],
-    EsFragil: [''],
     IDTipo: [''],
     IDCliente: [''],
     IDDestinatarios: [''],
@@ -106,7 +102,6 @@ export class UpdatePaquetePage implements OnInit {
 
 
   async updatePaquete(){
-    try{
           
     let row = {
       'Desc': this.paquetesForm.value.Desc,
@@ -119,34 +114,30 @@ export class UpdatePaquetePage implements OnInit {
         'Alto': this.paquetesForm.value.Alto,
         'Largo': this.paquetesForm.value.Largo,
         'Peso': this.paquetesForm.value.Peso,
-        'EsFragil': this.paquetesForm.value.EsFragil === ''? '' : this.paquetesForm.value.EsFragil? 1:0,
+        'EsFragil': this.Esfragil === ''? '': this.Esfragil === 'v'? 1:0,
       }
     }
 
     for (let key of Object.keys(row)){
-      if (key in row && row[key as keyof typeof row] === ''){
+      if (row[key as keyof typeof row] === '' || row[key as keyof typeof row] === null){
         delete row[key as keyof typeof row]
+        console.log(row);
       }
     }
 
     for (let key of Object.keys(row['DetallesPaquete'])){
-      if (key in row['DetallesPaquete'] && row['DetallesPaquete'][key as keyof typeof row['DetallesPaquete']] === ''){
+      if (row['DetallesPaquete'][key as keyof typeof row['DetallesPaquete']] === '' || row['DetallesPaquete'][key as keyof typeof row['DetallesPaquete']] === null){
         delete row['DetallesPaquete'][key as keyof typeof row['DetallesPaquete']]
+        console.log(row);
       }
     }
     
-    let Auxrow = JSON.stringify(row, null, 4);
-    this.messagetitle = 'Se ha realizado la operacion con éxito';
-    this.message = '';
+    let Auxrow = JSON.stringify(row);
 
     await this.httpService.UpdateTable('Paquetes', JSON.parse(Auxrow), this.paquetesForm.value.IDPaquete || '');
 
     await this.paquetesForm.reset();
-    }
-    catch(err){
-      this.messagetitle = 'Ha ocurrido un error.';
-      this.message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
-    }
+
   }
 
 
@@ -164,6 +155,18 @@ export class UpdatePaquetePage implements OnInit {
 
   resetTipos(){
     this.paquetesForm.get('IDTipo')?.setValue('');
+  }
+
+  changeEsfragil(){
+    if (this.Esfragil == ''){
+      this.Esfragil = 'v';
+    }
+    else if (this.Esfragil == 'f'){
+      this.Esfragil = 'v';
+    }
+    else {
+      this.Esfragil = 'f';
+    }
   }
 
 

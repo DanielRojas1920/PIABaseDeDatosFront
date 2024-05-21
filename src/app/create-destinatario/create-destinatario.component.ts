@@ -16,14 +16,11 @@ export class CreateDestinatarioComponent  implements OnInit {
   isModalOpenChild: boolean=false;
   canDismissChild: boolean=true;
   searchString: string= 'CP';
-  alertButtons = ['OK'];
-  messagetitle = 'Ha ocurrido un error.';
-  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
 
   destinatarioForm = this.formBuilder.group({
-    Nombre: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*( [a-zA-Z]*)?')])],
-    ApellidoP: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')])],
-    ApellidoM: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]*')])],
+    Nombre: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-ZáéíóúÁÉÍÓÚ]*( [a-zA-ZáéíóúÁÉÍÓÚ]+)?')])],
+    ApellidoP: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-ZáéíóúÁÉÍÓÚ]*( [a-zA-ZáéíóúÁÉÍÓÚ]+)?')])],
+    ApellidoM: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-ZáéíóúÁÉÍÓÚ]*( [a-zA-ZáéíóúÁÉÍÓÚ]+)?')])],
     Correo: ['', Validators.compose([Validators.required, Validators.pattern('[0-9a-zA-Z-.]*@[A-za-z]*.com')])],
     Telefono: ['', Validators.compose([Validators.required, Validators.pattern('[0-9]*')])],
     IDPais: ['', Validators.required],

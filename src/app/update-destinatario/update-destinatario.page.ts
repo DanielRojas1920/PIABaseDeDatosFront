@@ -17,15 +17,13 @@ export class UpdateDestinatarioPage implements OnInit {
   isModalOpenChild: boolean=false;
   canDismissChild: boolean=true;
   searchString: string='';
-  alertButtons = ['OK'];
-  messagetitle = 'Ha ocurrido un error.';
-  message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
+  
 
   destinatarioForm = this.formBuilder.group({
     IDDestinatarios: ['', Validators.required],
-    Nombre: ['', Validators.compose([Validators.pattern('[a-zA-Z]*( [a-zA-Z]*)?')])],
-    ApellidoP: ['', Validators.compose([Validators.pattern('[a-zA-Z]*')])],
-    ApellidoM: ['', Validators.compose([ Validators.pattern('[a-zA-Z]*')])],
+    Nombre: ['', Validators.compose([Validators.pattern('[a-zA-ZáéíóúÁÉÍÓÚ]*( [a-zA-ZáéíóúÁÉÍÓÚ]+)?')])],
+    ApellidoP: ['', Validators.compose([Validators.pattern('[a-zA-ZáéíóúÁÉÍÓÚ]*( [a-zA-ZáéíóúÁÉÍÓÚ]+)?')])],
+    ApellidoM: ['', Validators.compose([ Validators.pattern('[a-zA-ZáéíóúÁÉÍÓÚ]*( [a-zA-ZáéíóúÁÉÍÓÚ]+)?')])],
     Correo: ['', Validators.compose([Validators.pattern('[0-9a-zA-Z-.]*@[A-za-z]*.com')])],
     Telefono: ['', Validators.compose([ Validators.pattern('[0-9]*')])],
     IDPais: [''],
@@ -56,7 +54,7 @@ export class UpdateDestinatarioPage implements OnInit {
   }
 
   async updateDestinatario(){
-    try{
+
       let row = {
         'Nombre': this.destinatarioForm.value.Nombre,
         'ApellidoP': this.destinatarioForm.value.ApellidoP,
@@ -71,23 +69,18 @@ export class UpdateDestinatarioPage implements OnInit {
       };
   
       for (let key of Object.keys(row)){
-        if (key in row && row[key as keyof typeof row] === ''){
+        if (row[key as keyof typeof row] === '' || row[key as keyof typeof row] === null){
           delete row[key as keyof typeof row]
         }
       }
   
       let Auxrow = JSON.stringify(row, null, 4);
-      this.messagetitle = 'Se ha realizado la operacion con éxito';
-      this.message = '';
+
   
       await this.http.UpdateTable('Destinatarios', JSON.parse(Auxrow), this.destinatarioForm.value.IDDestinatarios || '');
   
       await this.destinatarioForm.reset()
-    }
-    catch(err){
-      this.messagetitle = 'Ha ocurrido un error.';
-      this.message = 'La información proporcionada no es válida o hay un error de conexion. Intente de nuevo.';
-    }
+
 
   }
 

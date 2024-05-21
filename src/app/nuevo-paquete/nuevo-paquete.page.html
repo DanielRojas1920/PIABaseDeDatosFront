@@ -7,12 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-alert
-  trigger="confirmation"
-  header="{{messagetitle}}"
-  message="{{message}}"
-  [buttons]="alertButtons"
-></ion-alert>
+
 
 <ion-content [fullscreen]="true" class="--ion-padding">
   <ion-header collapse="condense">
@@ -49,7 +44,7 @@
         </ion-col>
         <ion-col> 
           <ion-item >
-            <ion-checkbox formControlName="EsFragil"> El producto es frágil? </ion-checkbox>        
+            <ion-checkbox (ionChange)="changeEsfragil()"> El producto es frágil? </ion-checkbox>        
           </ion-item>
         </ion-col>
       </ion-row>
